@@ -31,7 +31,8 @@ public class Control implements CustomEvent{
 		way.operateStages(graph);
 		for (Stage s: graph) {
 			//printName(s.getfOfS());
-			printMat(s.getAdY());
+			printFs(s.getFs());
+			//printMat(s.getAdY());
 			printVO(s.getfOfS());
 			System.out.println("Caminos para la solución");
 			printMat(s.getxSubN());
@@ -57,6 +58,14 @@ public class Control implements CustomEvent{
 		for (int i=0;i<z.length;i++) {  //filas
 			for (int j = 0;j<z[i].length;j++) {//columnas
 				System.out.print(z[i][j]+" -");
+			}
+			System.out.println(" ");
+		}
+	}
+	private void printFs(String [][]z) {
+		for (int i=0;i<z.length;i++) {  //filas
+			for (int j = 0;j<z[i].length;j++) {//columnas
+				System.out.print(z[i][j]+",");
 			}
 			System.out.println(" ");
 		}

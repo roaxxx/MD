@@ -53,7 +53,14 @@ public class Stage {
 	public void setxSubN(int[][] xSubN) {
 		this.xSubN = xSubN;
 	}
+	
 
+	public String[][] getFs() {
+		return fs;
+	}
+	public void setFs(String[][] fs) {
+		this.fs = fs;
+	}
 	//Incializar la matriz de posibles caminos
 	public void initMatrixs() {
 		for (int i=0;i<adY.length;i++) {  //filas

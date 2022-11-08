@@ -131,7 +131,6 @@ public class Table extends JPanel implements ActionListener {
 			nStageT.setText("Digite la cantidad de nodos en la etapa: "+stage);
 			getNstages.setText("Aceptar");
 		}
-		System.out.println("l:"+l+"k:"+k);
 		int[] nodeName = new int[l];
 		int[][] dumpp = new int [k][l];
 		for (int i=0;i<l;i++) {  //filas
