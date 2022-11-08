@@ -1,8 +1,11 @@
 package view;
 
 
+import java.util.ArrayList;
+
 import javax.swing.*;
 import controller.*;
+import model.Stage;
 
 
 public class IOManager extends JFrame implements CustomEventResponse {
@@ -11,6 +14,7 @@ public class IOManager extends JFrame implements CustomEventResponse {
 	
 	public Control control;
 	private JPanel table;
+	private JPanel result;
 
 	public IOManager() {
 		
@@ -26,9 +30,20 @@ public class IOManager extends JFrame implements CustomEventResponse {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		table = new Table();
-		table.setBounds(5,5,1400,800);
+		table.setBounds(5,5,1275,750);
 		((Table)table).setEvent(control);
 		add(table); 
+		
+		result = new Result();
+		result.setBounds(410,5,975,750);
+		//((Result)result).setEvent(control);
+	}
+
+	@Override
+	public void setAttributeStages(ArrayList<Stage> operateStages) {
+		table.setBounds(5,5,400,750);
+		add(result); 
+		((Result)result).showResults(operateStages);
 		
 	}
 

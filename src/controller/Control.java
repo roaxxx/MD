@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import model.Stage;
-import model.Way;
+import model.Graph;
 import view.*;
 
 public class Control implements CustomEvent{
 	private CustomEventResponse event;
 	private Stage stage;
-	private Way way;
+	private Graph graph;
 	
 	public Control() {
 		//stage = new Stage();
-		way = new Way();
+		graph = new Graph();
 	}
 	public void init() {
 		IOManager frame = new IOManager();
@@ -27,9 +27,13 @@ public class Control implements CustomEvent{
 		this.event = event;
 	}
 	@Override
-	public void calculateWay(ArrayList<Stage> graph) {
-		way.operateStages(graph);
-		for (Stage s: graph) {
+	public void calculateWay(ArrayList<Stage> nodeStgs) {
+		ArrayList<Stage> stgs = new ArrayList<Stage>();
+		stgs = graph.operateStages(nodeStgs);
+		event.setAttributeStages(stgs);
+		
+		printName(graph.getWays(stgs));
+		for (Stage s: nodeStgs) {
 			//printName(s.getfOfS());
 			printFs(s.getFs());
 			//printMat(s.getAdY());

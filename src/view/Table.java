@@ -54,7 +54,7 @@ public class Table extends JPanel implements ActionListener {
 		font=new Font("Roboto", Font.PLAIN, 17);
 		this.setFont(font);
 		
-		iconFrame = new JLabel("William Fernando Roa Vargas - Jonatan Fernando Franco Cárdenas");
+		iconFrame = new JLabel("William Fernando Roa - Jonatan Fernando Franco");
 		iconFrame.setBounds(20,720,500,30);
 		iconFrame.setFont(new Font("Roboto", Font.PLAIN, 15));
 		add(iconFrame);
