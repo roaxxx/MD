@@ -14,7 +14,6 @@ public class Control implements CustomEvent{
 	private Graph graph;
 	
 	public Control() {
-		//stage = new Stage();
 		graph = new Graph();
 	}
 	public void init() {
@@ -37,6 +36,7 @@ public class Control implements CustomEvent{
 		}
 		ways = getWays(ways);
 		event.setAttributeStages(stgs);
+		event.setAttributeWays(ways);
 	}
 	private int[][] getMat(int[][] xSubN) {
 		int[][] stgNodes = new int[xSubN.length][xSubN[0].length];

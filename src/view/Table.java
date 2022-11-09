@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import model.Stage;
+import model.Way;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,7 +56,7 @@ public class Table extends JPanel implements ActionListener {
 		this.setFont(font);
 		
 		iconFrame = new JLabel("William Fernando Roa - Jonatan Fernando Franco");
-		iconFrame.setBounds(20,720,500,30);
+		iconFrame.setBounds(20,610,500,30);
 		iconFrame.setFont(new Font("Roboto", Font.PLAIN, 15));
 		add(iconFrame);
 
@@ -124,7 +125,6 @@ public class Table extends JPanel implements ActionListener {
 		getNstages.setText("Volver");
 		event.calculateWay(graph);
 	}
-
 	//Obtener los datos de la matriz de campos de texto
 	private void getCosts() {
 		if(stage != (numStages+1)) {		
@@ -164,8 +164,6 @@ public class Table extends JPanel implements ActionListener {
 		numNodesByS = (int) nStages.getValue();
 		nStages.setVisible(false);
 	}
-
-
 	//Obtener el número de estados
 	private void getNumStages() {
 		numStages = (int) nStages.getValue();
@@ -174,7 +172,6 @@ public class Table extends JPanel implements ActionListener {
 		nStageT.setText("Digite la cantidad de nodos en la etapa: "+"1");
 		stage++;
 	}
-
 	//Construir matriz de campos de texto----
 	private void buildGrid() {
 		int boxes = 10;
@@ -229,5 +226,31 @@ public class Table extends JPanel implements ActionListener {
 	}
 	public void setEvent(CustomEvent event) {
 		this.event = event;
+	}
+	public void showWays(ArrayList<Way> ways) {
+		
+		int y = 350;
+		for(int i = 0 ;i<ways.size();i++) {
+			createWayGird(ways.get(i),ways.get(i).getWayNodes().length, y,i);
+			y=y+30;
+		}
+	}
+	private void createWayGird(Way way, int j,int y, int k) {
+		JLabel[] solution = new JLabel[j];
+		int x = 130;
+		for(int i = 0; i< solution.length;i++) {
+			if(i==0) {
+				solution[i] = new JLabel("S"+(k+1)+": "+way.getWayNodes()[i]+",");		
+			}else if(i== solution.length-1) {
+				solution[i] = new JLabel(way.getWayNodes()[i]+"");	
+			}else {
+				solution[i] = new JLabel(way.getWayNodes()[i]+",");	
+			}
+			solution[i].setBounds(x,y,60,40);
+			solution[i].setFont(font);
+			this.add(solution[i]);
+			if(i==0) x=x+25;
+			x=x+30;
+		}
 	}
 }

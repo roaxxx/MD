@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,6 +14,7 @@ import model.Stage;
 public class Result extends JPanel {
 	private Font font;
 	private JTable[] tStages;
+	private JLabel[] nStages;
 	public Result() {
 		this.setLayout(null);
 		this.setBackground(new Color(174, 214, 241));
@@ -23,11 +25,12 @@ public class Result extends JPanel {
 	public void showResults(ArrayList<Stage> stg) {
 		int numStages= stg.size();
 		tStages = new JTable [numStages];
+		nStages = new JLabel [numStages];
 		int y = 20;
 		numStages--;
 		for(int i = numStages; i>=0;i--) {
 			int nColmns= (stg.get(i).getAdY().length)+3;
-			String [] columns = transformColumns(stg.get(i),i);
+			String [] columns = transformColumns(stg.get(i),i+1);
 			Object [][] rows;
 			if(i==0) {
 				rows = transformRows(stg.get(i),stg.get(i),true);
@@ -35,10 +38,14 @@ public class Result extends JPanel {
 				rows = transformRows(stg.get(i),stg.get(i-1),false);	
 			}
 			tStages[i] = new JTable(rows,columns);
+			nStages[i] = new JLabel("Step: "+(i+1));
 			tStages[i].setFont(font);		
 			JScrollPane scroll =new JScrollPane(tStages[i]);
-			scroll.setBounds(50,y,600,100);
+			scroll.setBounds(110,y,600,100);
+			nStages[i].setBounds(10,y,90,20);
+			nStages[i].setFont(font);
 			add(scroll);
+			add(nStages[i]);
 			y = y + 130;
 		}
 
