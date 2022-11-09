@@ -27,7 +27,7 @@ public class Graph {
 		for(int i =0; i< stage.getAdY().length;i++) {
 			for(int j =0;j< stage.getAdY()[i].length;j++) {
 				fnSn[i] = stage.getAdY()[i][j];  
-				stage.getFs()[i][j]=stage.getAdY()[i][j]+"+0 ="+fnSn[i];
+				stage.getFs()[i][j]=stage.getAdY()[i][j]+"+0="+fnSn[i];
 			}
 		}
 		stage.setfOfS(fnSn);
@@ -62,24 +62,35 @@ public class Graph {
 		}
 		s.setxSubN(way);
 	}
-	public int[] getWays(ArrayList<Stage> graph) {
-		int[] way = new int [graph.size()+1];
+	public int[] getWay(ArrayList<Way> ways2) {
+		int[] way = new int [ways2.size()+1];
 		way[0] = 1;
 		int postj;
 		int s = 0;
-		for(int i=0 ; i<graph.size() ; i++) {
-			Stage stg = graph.get(i);
-			postj = getBestNodePos(stg.getxSubN(),s);
-			way[i+1]= stg.getxSubN()[s][postj];
+		for(int i=0 ; i<ways2.size() ; i++) {
+			Way w = ways2.get(i);
+			postj = getBestNodePos(w.getfOsf(),s);
+			way[i+1]= w.getfOsf()[s][postj];
+			if(i==1) {
+				w.getfOsf()[s][postj]=0;
+			}else if(i==0) {
+				if(deleteFirts(ways2.get(1).getfOsf(), postj)<2) w.getfOsf()[s][postj]=0;
+			}
 			s = postj;
 		}
 		return way;
 	}
 	private int getBestNodePos(int[][] adY, int s) {
-		
 		for(int i =0; i<adY[s].length;i++) {
 			if(adY[s][i]!=0) return i;
 		}
 		return 0;
+	}
+	private int deleteFirts(int[][] adY, int s) {
+		int count = 0;
+		for(int i =0; i<adY[s].length;i++) {
+			if(adY[s][i]!=0) count++;
+		}
+		return count;
 	}
 }

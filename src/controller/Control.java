@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import model.Stage;
+import model.Way;
 import model.Graph;
 import view.*;
 
@@ -29,50 +30,37 @@ public class Control implements CustomEvent{
 	@Override
 	public void calculateWay(ArrayList<Stage> nodeStgs) {
 		ArrayList<Stage> stgs = new ArrayList<Stage>();
+		ArrayList<Way> ways = new ArrayList<Way>();
 		stgs = graph.operateStages(nodeStgs);
-		event.setAttributeStages(stgs);
-		
-		printName(graph.getWays(stgs));
 		for (Stage s: nodeStgs) {
-			//printName(s.getfOfS());
-			printFs(s.getFs());
-			//printMat(s.getAdY());
-			printVO(s.getfOfS());
-			System.out.println("Caminos para la solución");
-			printMat(s.getxSubN());
-			
+			ways.add(new Way(getMat(s.getxSubN())));			
 		}
+		ways = getWays(ways);
+		event.setAttributeStages(stgs);
 	}
-	//Imprimir matriz de etapa
-	private void printName(int []z) {
-		for (int i=0;i<z.length;i++) {  //filasmnas
-			System.out.print(z[i]+",");
-			
-		}
-		System.out.println("");
-	}
-	private void printVO(int []z) {
-		for (int i=0;i<z.length;i++) {  //filasmnas
-			System.out.print(z[i]+".");
-			
-		}
-		System.out.println("");
-	}
-	private void printMat(int [][]z) {
-		for (int i=0;i<z.length;i++) {  //filas
-			for (int j = 0;j<z[i].length;j++) {//columnas
-				System.out.print(z[i][j]+" -");
+	private int[][] getMat(int[][] xSubN) {
+		int[][] stgNodes = new int[xSubN.length][xSubN[0].length];
+		for (int i=0;i<xSubN.length;i++) {  //filas
+			for (int j = 0;j<xSubN[i].length;j++) {//columnas
+				stgNodes[i][j]=xSubN[i][j]+0;
 			}
-			System.out.println(" ");
 		}
+		return stgNodes;
 	}
-	private void printFs(String [][]z) {
-		for (int i=0;i<z.length;i++) {  //filas
-			for (int j = 0;j<z[i].length;j++) {//columnas
-				System.out.print(z[i][j]+",");
+	private ArrayList<Way> getWays(ArrayList<Way> ways2) {
+		ArrayList<Way> ways = new ArrayList<Way>();
+		int count = 0;
+		while(count < 5) {
+			Way way = new Way();
+			int[] newWay = graph.getWay(ways2);
+			if(newWay[1]==0) {
+				return ways;
+			}else {
+				way.setWayNodes(newWay);
 			}
-			System.out.println(" ");
+			ways.add(way);
+			count++;
 		}
+		return ways;
 	}
-
 }
